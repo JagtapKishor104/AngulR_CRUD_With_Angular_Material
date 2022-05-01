@@ -20,11 +20,13 @@ import { DialogComponent } from './dialog/dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
+import { MydirDirective } from './mydir.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogComponent
+    DialogComponent,
+    MydirDirective
   ],
   imports: [
     BrowserModule,

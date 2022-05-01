@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild,EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { ApiService } from './Services/api.service';
@@ -27,20 +27,26 @@ export class AppComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  @Output() data:EventEmitter<any>=new EventEmitter() ;
 
   openDialog() {
     this.dialog.open(DialogComponent, {
       width: "30%",
-    });
+    }).afterClosed().subscribe(val=>
+      {
+        if(val==="save")
+        {
+          this.getuser();
+        }
+      })
   }
   getuser() {
-    this.service.getuserdetail().subscribe((posres) => {
+    this.service.getuserdetail().subscribe({next:(posres) => {
       console.log(posres);
       this.dataSource = new MatTableDataSource(posres.result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
+      }})
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -54,8 +60,16 @@ export class AppComponent implements OnInit {
     this.dialog.open(DialogComponent,
       {
         width: '30%',
-        data: row
-      })
+        data: row,
+      }).afterClosed().subscribe(val=>
+        {
+          if(val==="update")
+          {
+            this.getuser(); 
+          }
+        })
+      
+     
   }
 
   delete(data: any) {
@@ -67,5 +81,9 @@ export class AppComponent implements OnInit {
       (err: HttpErrorResponse) => {
         console.log(err);
       })
+  }
+  senddata()
+  {
+    this.data.emit(this.getuser());
   }
 }

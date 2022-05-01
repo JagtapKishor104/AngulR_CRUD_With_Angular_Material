@@ -30,7 +30,8 @@ export class DialogComponent implements OnInit {
     this.myform.controls["email"].setValue(this.editData.uemail);
     this.myform.controls["mobile"].setValue(this.editData.umobile);
     this.myform.controls["salary"].setValue(this.editData.usalary);
-
+    
+    
   }
   }
   myform=this.fb.group(
@@ -53,7 +54,7 @@ submit()
         console.log(posres);
         alert("Data send Successfully");
         this.dialogRef.close('save');
-        window.location.reload();
+        
       },(err:HttpErrorResponse)=>
       {
         console.log(err);
@@ -75,14 +76,9 @@ update()
       alert("Data Updated");
       sessionStorage.clear();
       this.dialogRef.close('update');
-
     })
   }
 }
-getuser() {
-  this.service.getuserdetail().subscribe((posres) => {
-    console.log(posres);
-  })
-}
+
 
 }
