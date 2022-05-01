@@ -1,4 +1,10 @@
-# CrudWithUI
+# AngulR_CRUD_With_Angular_Material
+
+Step First:Start JSON Server
+ D:\CrudWithUI\src\app\server> nodemon server
+ 
+ Step Second: Start Angular Application
+ ng s -o
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
 
